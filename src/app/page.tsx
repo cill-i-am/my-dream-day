@@ -1,10 +1,12 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { CardContent } from "@/components/ui/card"
-import { MagicCard } from "@/components/ui/magic-card"
 import Autoplay from "embla-carousel-autoplay"
+import { MagicCard } from '@/components/magicui/magic-card'
 
 // This would ideally be fetched from a CMS or database
 const testimonials = [
@@ -80,7 +82,7 @@ export default function Home() {
               <CarouselItem key={testimonial.id}>
                 <MagicCard>
                   <CardContent className="p-6">
-                    <p className="mb-4 italic text-muted-foreground">"{testimonial.content}"</p>
+                    <p className="mb-4 italic text-muted-foreground">&quot;{testimonial.content}&quot;</p>
                     <p className="text-right font-semibold">- {testimonial.name}</p>
                   </CardContent>
                 </MagicCard>
