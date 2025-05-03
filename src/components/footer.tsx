@@ -8,10 +8,10 @@ export default function Footer() {
                     <p className="text-center text-sm text-muted-foreground">&copy; 2025 My Dream Day.ie. All rights reserved.</p>
                 </div>
                 <div className="flex justify-center space-x-6 md:order-2">
-                    <Link href="tel:087-6069169" className="text-sm text-muted-foreground hover:text-primary">
+                    <Link prefetch href="tel:087-6069169" className="text-sm text-muted-foreground hover:text-primary">
                         087-6069169
                     </Link>
-                    <Link href="mailto:Mydreamdayireland@gmail.com" className="text-sm text-muted-foreground hover:text-primary">
+                    <Link prefetch href="mailto:Mydreamdayireland@gmail.com" className="text-sm text-muted-foreground hover:text-primary">
                         Mydreamdayireland@gmail.com
                     </Link>
                 </div>

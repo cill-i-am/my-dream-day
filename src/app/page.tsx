@@ -67,7 +67,7 @@ export default async function Home() {
           make your dream day a real life Pinterest Moment.
         </p>
         <Button asChild>
-          <Link href="/contact">Contact Us Today</Link>
+          <Link prefetch href="/contact">Contact Us Today</Link>
         </Button>
       </section>
     </div>

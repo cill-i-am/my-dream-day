@@ -1,35 +1,53 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { ThemeToggle } from './theme-toggle'
+import { MobileNav } from "./layout/MobileNav"
 
 export default function Header() {
+    // Assume existing desktop navigation links are handled elsewhere or defined here
+    const desktopNavLinks = [
+        { href: "/about", label: "About" },
+        { href: "/services", label: "Services" },
+        { href: "/portfolio", label: "Portfolio" },
+        { href: "/contact", label: "Contact" },
+    ];
+
     return (
-        <header className="border-b">
-            <div className="container mx-auto px-6 py-4">
-                <div className="flex justify-between items-center">
-                    <Link href="/" className="text-2xl font-bold">
-                        My Dream Day.ie
+        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container flex h-14 max-w-screen-2xl items-center px-2 justify-start gap-2">
+                <div className="mr-4 hidden md:flex">
+                    <Link prefetch href="/" className="mr-6 flex items-center space-x-2">
+                        {/* Replace with your Logo component or SVG if you have one */}
+                        <span className="font-bold sm:inline-block">MyDreamDay</span>
                     </Link>
-                    <div className="flex items-center space-x-4">
-                        <nav className="hidden md:flex space-x-4">
-                            <Button variant="ghost" asChild>
-                                <Link href="/">Home</Link>
-                            </Button>
-                            <Button variant="ghost" asChild>
-                                <Link href="/about">About Us</Link>
-                            </Button>
-                            <Button variant="ghost" asChild>
-                                <Link href="/portfolio">Portfolio</Link>
-                            </Button>
-                            <Button variant="ghost" asChild>
-                                <Link href="/services">Services</Link>
-                            </Button>
-                            <Button variant="ghost" asChild>
-                                <Link href="/contact">Contact</Link>
-                            </Button>
-                        </nav>
+                    <nav className="flex items-center gap-6 text-sm">
+                        {desktopNavLinks.map((link) => (
+                            <Link
+                                prefetch
+                                key={link.href}
+                                href={link.href}
+                                className="transition-colors hover:text-foreground/80 text-foreground/60"
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
+                    </nav>
+                </div>
+
+                {/* Mobile Navigation Trigger - Placed at the start for mobile layout */}
+                <MobileNav />
+
+                {/* Site Title/Logo - Visible on mobile */}
+                <div className="flex flex-1 items-center justify-start space-x-2 md:hidden">
+                    <Link prefetch href="/" className="flex items-center space-x-2">
+                        {/* Replace with your Logo component or SVG if you have one */}
+                        <span className="font-bold">MyDreamDay</span>
+                    </Link>
+                </div>
+
+                <div className="flex flex-1 items-center justify-end space-x-2">
+                    <nav className="flex items-center">
                         <ThemeToggle />
-                    </div>
+                    </nav>
                 </div>
             </div>
         </header>
