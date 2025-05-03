@@ -1,47 +1,26 @@
 import { MagicCard } from '@/components/magicui/magic-card'
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import getPackages from '@/sanity/queries/get-packages'
+import getServices from '@/sanity/queries/get-services'
 import { CheckCircle, Phone, Heart, Mail, Cookie, Wine, Camera, Sparkles } from "lucide-react"
 
-export default function Services() {
-    const services = [
-        "Church Décor",
-        "Ceremony Décor",
-        "Outdoor Ceremony",
-        "Selfie Mirror hire",
-        "360 Cam Hire",
-        "Led Light Up Dance Floor",
-        "5ft Love Sign",
-        "5ft Mr and Mrs Sign",
-        "Cold Fountain Stage Effects",
-        "Throne Chairs",
-        "Centre pieces",
-        "Postbox hire",
-        "Stage effects",
-        "Sparklers",
-        "Confetti Canons",
-        "Telephone Audio Box",
-        "Full Hall Draping",
-    ]
+export default async function Services() {
+    const services = await getServices()
+    console.log('🚀 ~ Services ~ services:', services);
+    const packages = await getPackages()
+    console.log('🚀 ~ Services ~ packages:', packages);
 
-    const packages = [
-        {
-            name: "Standard Package",
-            price: "€1000",
-            items: [
-                "Telephone Audio Box",
-                "Postbox",
-                "Love Sign 5ft",
-                "Donut Stand",
-                "MR AND MRS SIGN 5FT",
-                "Prosecco Stand",
-            ],
-        },
-        {
-            name: "Selfie Package",
-            price: "€1000",
-            items: ["Telephone audio box", "Postbox", "Selfie Mirror Hire – 3hour hire"],
-        },
-    ]
+    const getServicesByPackage = async (packageItems: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+    }>) => {
+        const packageItemRefs = packageItems.map(item => item._ref);
+        const servicesByPackage = services.filter((service) => packageItemRefs.includes(service._id))
+        return servicesByPackage
+    }
+
 
     return (
         <div className="container mx-auto px-6 py-12">
@@ -56,7 +35,7 @@ export default function Services() {
                         {services.map((service, index) => (
                             <li key={index} className="flex items-center">
                                 <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                                <span className="text-muted-foreground">{service}</span>
+                                <span className="text-muted-foreground">{service.name}</span>
                             </li>
                         ))}
                     </ul>
@@ -73,26 +52,26 @@ export default function Services() {
                         <CardContent>
                             <p className="text-2xl font-bold mb-4">{pkg.price}</p>
                             <ul className="space-y-2">
-                                {pkg.items.map((item, itemIndex) => (
+                                {pkg.items ? getServicesByPackage(pkg.items).then((services) => services.map((service, itemIndex) => (
                                     <li key={itemIndex} className="flex items-center gap-2 text-muted-foreground mb-2">
-                                        {item.toLowerCase().includes("telephone") ? (
+                                        {service.name?.toLowerCase().includes("telephone") ? (
                                             <Phone className="h-4 w-4 text-primary" />
-                                        ) : item.toLowerCase().includes("love sign") || item.toLowerCase().includes("mr and mrs") ? (
+                                        ) : service.name?.toLowerCase().includes("love sign") || service.name?.toLowerCase().includes("mr and mrs") ? (
                                             <Heart className="h-4 w-4 text-primary" />
-                                        ) : item.toLowerCase().includes("postbox") ? (
+                                        ) : service.name?.toLowerCase().includes("postbox") ? (
                                             <Mail className="h-4 w-4 text-primary" />
-                                        ) : item.toLowerCase().includes("donut") ? (
+                                        ) : service.name?.toLowerCase().includes("donut") ? (
                                             <Cookie className="h-4 w-4 text-primary" />
-                                        ) : item.toLowerCase().includes("prosecco") ? (
+                                        ) : service.name?.toLowerCase().includes("prosecco") ? (
                                             <Wine className="h-4 w-4 text-primary" />
-                                        ) : item.toLowerCase().includes("selfie") ? (
+                                        ) : service.name?.toLowerCase().includes("selfie") ? (
                                             <Camera className="h-4 w-4 text-primary" />
                                         ) : (
                                             <Sparkles className="h-4 w-4 text-primary" />
                                         )}
-                                        {item}
+                                        {service.name}
                                     </li>
-                                ))}
+                                ))) : null}
                             </ul>
                         </CardContent>
                     </MagicCard>
