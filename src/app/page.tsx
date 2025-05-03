@@ -46,7 +46,7 @@ export default async function Home() {
           <CarouselContent>
             {testamonials.map((testamonial) => (
               <CarouselItem key={testamonial.order}>
-                <MagicCard>
+                <MagicCard className="rounded">
                   <CardContent className="p-6">
                     <p className="mb-4 italic text-muted-foreground">&quot;{testamonial.content}&quot;</p>
                     <p className="text-right font-semibold">- {testamonial.name}</p>
