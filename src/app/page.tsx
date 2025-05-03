@@ -1,43 +1,14 @@
-"use client"
-
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { CardContent } from "@/components/ui/card"
-import Autoplay from "embla-carousel-autoplay"
 import { MagicCard } from '@/components/magicui/magic-card'
+import getTestamonials from '@/sanity/queries/get-testamonials'
 
-// This would ideally be fetched from a CMS or database
-const testimonials = [
-  {
-    id: 1,
-    name: "Sarah & John",
-    content: "My Dream Day made our wedding absolutely perfect! The attention to detail was incredible.",
-  },
-  {
-    id: 2,
-    name: "Emma & David",
-    content: "We couldn't be happier with the service provided. Stuart's expertise made our day truly special.",
-  },
-  {
-    id: 3,
-    name: "Laura & Michael",
-    content: "The church décor was breathtaking. Everyone was commenting on how beautiful it looked.",
-  },
-  {
-    id: 4,
-    name: "Claire & Peter",
-    content: "Stuart's creativity and professionalism exceeded our expectations. Our venue looked magical!",
-  },
-  {
-    id: 5,
-    name: "Amy & Robert",
-    content: "The attention to detail was amazing. My Dream Day truly made our wedding unforgettable.",
-  },
-]
+export default async function Home() {
+  const testamonials = await getTestamonials();
 
-export default function Home() {
   return (
     <div className="container mx-auto px-6 py-12">
       <section className="text-center mb-12">
@@ -70,20 +41,15 @@ export default function Home() {
             align: "start",
             loop: true,
           }}
-          plugins={[
-            Autoplay({
-              delay: 5000,
-            }),
-          ]}
           className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto"
         >
           <CarouselContent>
-            {testimonials.map((testimonial) => (
-              <CarouselItem key={testimonial.id}>
+            {testamonials.map((testamonial) => (
+              <CarouselItem key={testamonial.order}>
                 <MagicCard>
                   <CardContent className="p-6">
-                    <p className="mb-4 italic text-muted-foreground">&quot;{testimonial.content}&quot;</p>
-                    <p className="text-right font-semibold">- {testimonial.name}</p>
+                    <p className="mb-4 italic text-muted-foreground">&quot;{testamonial.content}&quot;</p>
+                    <p className="text-right font-semibold">- {testamonial.name}</p>
                   </CardContent>
                 </MagicCard>
               </CarouselItem>
