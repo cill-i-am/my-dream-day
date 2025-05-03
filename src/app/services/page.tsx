@@ -6,15 +6,10 @@ import { CheckCircle, Phone, Heart, Mail, Cookie, Wine, Camera, Sparkles } from 
 
 export default async function Services() {
     const services = await getServices()
-    console.log('🚀 ~ Services ~ services:', services);
     const packages = await getPackages()
-    console.log('🚀 ~ Services ~ packages:', packages);
 
     const getServicesByPackage = async (packageItems: Array<{
         _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        _key: string;
     }>) => {
         const packageItemRefs = packageItems.map(item => item._ref);
         const servicesByPackage = services.filter((service) => packageItemRefs.includes(service._id))

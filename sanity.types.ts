@@ -74,6 +74,28 @@ export type Slug = {
   source?: string;
 };
 
+export type Team = {
+  _id: string;
+  _type: "team";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  description?: string;
+};
+
 export type Testimonial = {
   _id: string;
   _type: "testimonial";
@@ -92,8 +114,6 @@ export type Service = {
   _updatedAt: string;
   _rev: string;
   name?: string;
-  category?: "general" | "package";
-  packageType?: "standard" | "selfie";
 };
 
 export type PortfolioItem = {
@@ -192,5 +212,5 @@ export type Package = {
   }>;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Slug | Testimonial | Service | PortfolioItem | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Package;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Slug | Team | Testimonial | Service | PortfolioItem | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Package;
 export declare const internalGroqTypeReferenceTo: unique symbol;
