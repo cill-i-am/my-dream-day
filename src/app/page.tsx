@@ -4,7 +4,10 @@ import { Button } from "@/components/ui/button"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { CardContent } from "@/components/ui/card"
 import { MagicCard } from '@/components/magicui/magic-card'
+import CompanyInfoSection from '@/components/company-info-section'
 import getTestamonials from '@/sanity/queries/get-testamonials'
+import getCompanyInfo from '@/sanity/queries/get-company-info'
+import type { Testimonial } from '../../sanity.types'
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -40,7 +43,10 @@ export const metadata: Metadata = {
 }
 
 export default async function Home() {
-  const testamonials = await getTestamonials();
+  const [testamonials, companyInfo] = await Promise.all([
+    getTestamonials(),
+    getCompanyInfo()
+  ]);
 
   return (
     <div className="container mx-auto px-6 py-12">
@@ -53,19 +59,28 @@ export default async function Home() {
         </p>
       </section>
 
-      <section className="grid md:grid-cols-2 gap-12 mb-12">
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">Our Expertise</h2>
-          <p className="mb-4 text-muted-foreground">
-            We have an eye for detail. Our background is in Fresh Flowers. Over the last 20 years we have worked with so
-            many couples over the years making their dream day a reality.
-          </p>
-          <p className="text-muted-foreground">We are a Limerick based company but we travel Nationwide.</p>
-        </div>
-        <div>
-          <Image src="/placeholder.svg" alt="Wedding Décor" width={500} height={300} className="rounded-lg shadow-md" />
-        </div>
-      </section>
+      {companyInfo && companyInfo.heading && companyInfo.paragraphs && companyInfo.image && companyInfo.imageAlt ? (
+        <CompanyInfoSection
+          heading={companyInfo.heading}
+          paragraphs={companyInfo.paragraphs}
+          image={companyInfo.image}
+          imageAlt={companyInfo.imageAlt}
+        />
+      ) : (
+        <section className="grid md:grid-cols-2 gap-12 mb-12">
+          <div>
+            <h2 className="text-2xl font-semibold mb-4">Our Expertise</h2>
+            <p className="mb-4 text-muted-foreground">
+              We have an eye for detail. Our background is in Fresh Flowers. Over the last 20 years we have worked with so
+              many couples over the years making their dream day a reality.
+            </p>
+            <p className="text-muted-foreground">We are a Limerick based company but we travel Nationwide.</p>
+          </div>
+          <div>
+            <Image src="/placeholder.svg" alt="Wedding Décor" width={500} height={300} className="rounded-lg shadow-md" />
+          </div>
+        </section>
+      )}
 
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4 text-center">What Our Clients Say</h2>
@@ -77,7 +92,7 @@ export default async function Home() {
           className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto"
         >
           <CarouselContent>
-            {testamonials.map((testamonial) => (
+            {testamonials.map((testamonial: Testimonial) => (
               <CarouselItem key={testamonial.order}>
                 <MagicCard className="rounded">
                   <CardContent className="p-6">
