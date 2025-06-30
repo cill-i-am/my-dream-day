@@ -15,7 +15,7 @@ export const metadata: Metadata = {
         locale: "en_IE",
         images: [
             {
-                url: "/placeholder.svg", // You should replace this with a team photo
+                url: "/brand_logo.png",
                 width: 1200,
                 height: 630,
                 alt: "My Dream Day Team - Wedding & Event Décor Experts",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "About Us - My Dream Day.ie | Wedding & Event Décor Team",
         description: "Meet our experienced team at My Dream Day.ie. With 20+ years in fresh flowers and wedding décor, we make your dream day a reality.",
-        images: ["/placeholder.svg"], // You should replace this with a team photo
+        images: ["/brand_logo.png"],
         creator: "@mydreamday_ie", // Replace with actual Twitter handle if available
     },
     alternates: {

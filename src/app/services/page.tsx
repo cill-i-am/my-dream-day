@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         locale: "en_IE",
         images: [
             {
-                url: "/placeholder.svg", // You should replace this with a services/packages image
+                url: "/brand_logo.png",
                 width: 1200,
                 height: 630,
                 alt: "My Dream Day Services - Wedding & Event Décor Packages",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Services & Packages - My Dream Day.ie | Wedding & Event Décor",
         description: "Explore our wedding and event décor services and packages. Church décor from €500, civil ceremony styling, venue decoration, and complete package deals.",
-        images: ["/placeholder.svg"], // You should replace this with a services/packages image
+        images: ["/brand_logo.png"],
         creator: "@mydreamday_ie", // Replace with actual Twitter handle if available
     },
     alternates: {

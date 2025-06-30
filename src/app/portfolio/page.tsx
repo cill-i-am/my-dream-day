@@ -15,7 +15,7 @@ export const metadata: Metadata = {
         locale: "en_IE",
         images: [
             {
-                url: "/placeholder.svg", // You should replace this with a featured portfolio image
+                url: "/brand_logo.png",
                 width: 1200,
                 height: 630,
                 alt: "My Dream Day Portfolio - Wedding & Event Décor Gallery",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Portfolio - My Dream Day.ie | Wedding & Event Décor Gallery",
         description: "View our stunning portfolio of wedding and event décor projects. See our church décor, civil ceremony styling, and venue transformations.",
-        images: ["/placeholder.svg"], // You should replace this with a featured portfolio image
+        images: ["/brand_logo.png"],
         creator: "@mydreamday_ie", // Replace with actual Twitter handle if available
     },
     alternates: {

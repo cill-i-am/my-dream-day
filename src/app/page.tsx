@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     locale: "en_IE",
     images: [
       {
-        url: "/placeholder.svg", // You should replace this with an actual hero image
+        url: "/brand_logo.png",
         width: 1200,
         height: 630,
         alt: "My Dream Day - Wedding & Event Décor",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "My Dream Day.ie - Wedding & Event Hire Décor",
     description: "We are passionate about planning and decorating your dream day. Specializing in Church Décor, Civil Ceremony Décor, and Venue décor.",
-    images: ["/placeholder.svg"], // You should replace this with an actual hero image
+    images: ["/brand_logo.png"],
     creator: "@mydreamday_ie", // Replace with actual Twitter handle if available
   },
   alternates: {

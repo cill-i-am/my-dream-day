@@ -14,7 +14,7 @@ export const metadata: Metadata = {
         locale: "en_IE",
         images: [
             {
-                url: "/placeholder.svg", // You should replace this with a contact/inquiry related image
+                url: "/brand_logo.png",
                 width: 1200,
                 height: 630,
                 alt: "Contact My Dream Day - Wedding & Event Décor Inquiry",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Contact Us - My Dream Day.ie | Wedding Inquiry & Booking",
         description: "Contact My Dream Day.ie for your wedding or event décor needs. Get a quote for church décor, civil ceremony décor, and venue styling.",
-        images: ["/placeholder.svg"], // You should replace this with a contact/inquiry related image
+        images: ["/brand_logo.png"],
         creator: "@mydreamday_ie", // Replace with actual Twitter handle if available
     },
     alternates: {
