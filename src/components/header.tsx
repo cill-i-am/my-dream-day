@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { ThemeToggle } from './theme-toggle'
 import { MobileNav } from "./layout/MobileNav"
 
@@ -16,8 +17,14 @@ export default function Header() {
             <div className="container flex h-14 max-w-screen-2xl items-center px-2 justify-start gap-2">
                 <div className="mr-4 hidden md:flex">
                     <Link prefetch href="/" className="mr-6 flex items-center space-x-2">
-                        {/* Replace with your Logo component or SVG if you have one */}
-                        <span className="font-bold sm:inline-block">MyDreamDay</span>
+                        <Image
+                            src="/brand_logo.png"
+                            alt="My Dream Day - Wedding & Event Décor"
+                            width={100}
+                            height={100}
+                            className="h-16 w-auto"
+                            priority
+                        />
                     </Link>
                     <nav className="flex items-center gap-6 text-sm">
                         {desktopNavLinks.map((link) => (
@@ -39,8 +46,14 @@ export default function Header() {
                 {/* Site Title/Logo - Visible on mobile */}
                 <div className="flex flex-1 items-center justify-start space-x-2 md:hidden">
                     <Link prefetch href="/" className="flex items-center space-x-2">
-                        {/* Replace with your Logo component or SVG if you have one */}
-                        <span className="font-bold">MyDreamDay</span>
+                        <Image
+                            src="/brand_logo.png"
+                            alt="My Dream Day - Wedding & Event Décor"
+                            width={100}
+                            height={32}
+                            className="h-7 w-auto"
+                            priority
+                        />
                     </Link>
                 </div>
 
