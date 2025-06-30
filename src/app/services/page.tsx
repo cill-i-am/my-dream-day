@@ -3,6 +3,39 @@ import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import getPackages from '@/sanity/queries/get-packages'
 import getServices from '@/sanity/queries/get-services'
 import { CheckCircle, Phone, Heart, Mail, Cookie, Wine, Camera, Sparkles } from "lucide-react"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: "Services & Packages - My Dream Day.ie | Wedding & Event Décor",
+    description: "Explore our wedding and event décor services and packages. Church décor from €500, civil ceremony styling, venue decoration, and complete package deals. Limerick based, serving nationwide.",
+    keywords: ["wedding services", "event packages", "church decor packages", "civil ceremony decor", "venue styling", "wedding decoration", "Limerick", "Ireland", "package deals"],
+    openGraph: {
+        title: "Services & Packages - My Dream Day.ie | Wedding & Event Décor",
+        description: "Explore our wedding and event décor services and packages. Church décor from €500, civil ceremony styling, venue decoration, and complete package deals.",
+        url: "https://mydreamday.ie/services",
+        siteName: "My Dream Day.ie",
+        type: "website",
+        locale: "en_IE",
+        images: [
+            {
+                url: "/placeholder.svg", // You should replace this with a services/packages image
+                width: 1200,
+                height: 630,
+                alt: "My Dream Day Services - Wedding & Event Décor Packages",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Services & Packages - My Dream Day.ie | Wedding & Event Décor",
+        description: "Explore our wedding and event décor services and packages. Church décor from €500, civil ceremony styling, venue decoration, and complete package deals.",
+        images: ["/placeholder.svg"], // You should replace this with a services/packages image
+        creator: "@mydreamday_ie", // Replace with actual Twitter handle if available
+    },
+    alternates: {
+        canonical: "https://mydreamday.ie/services",
+    },
+}
 
 export default async function Services() {
     const services = await getServices()

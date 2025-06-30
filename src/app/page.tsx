@@ -5,6 +5,39 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { CardContent } from "@/components/ui/card"
 import { MagicCard } from '@/components/magicui/magic-card'
 import getTestamonials from '@/sanity/queries/get-testamonials'
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "My Dream Day.ie - Wedding & Event Hire Décor",
+  description: "We are passionate about planning and decorating your dream day. Specializing in Church Décor, Civil Ceremony Décor, and Venue décor. Limerick based, serving nationwide.",
+  keywords: ["wedding decor", "event hire", "church decor", "civil ceremony", "venue decor", "Limerick", "Ireland", "wedding planning"],
+  openGraph: {
+    title: "My Dream Day.ie - Wedding & Event Hire Décor",
+    description: "We are passionate about planning and decorating your dream day. Specializing in Church Décor, Civil Ceremony Décor, and Venue décor. Limerick based, serving nationwide.",
+    url: "https://mydreamday.ie",
+    siteName: "My Dream Day.ie",
+    type: "website",
+    locale: "en_IE",
+    images: [
+      {
+        url: "/placeholder.svg", // You should replace this with an actual hero image
+        width: 1200,
+        height: 630,
+        alt: "My Dream Day - Wedding & Event Décor",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "My Dream Day.ie - Wedding & Event Hire Décor",
+    description: "We are passionate about planning and decorating your dream day. Specializing in Church Décor, Civil Ceremony Décor, and Venue décor.",
+    images: ["/placeholder.svg"], // You should replace this with an actual hero image
+    creator: "@mydreamday_ie", // Replace with actual Twitter handle if available
+  },
+  alternates: {
+    canonical: "https://mydreamday.ie",
+  },
+}
 
 export default async function Home() {
   const testamonials = await getTestamonials();
