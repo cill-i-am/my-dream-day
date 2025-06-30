@@ -1,7 +1,6 @@
 'use client'
 
 import Image from "next/image"
-import { urlFor } from "@/sanity/lib/image"
 import { SanityImageSource } from "@sanity/image-url/lib/types/types"
 import { useNextSanityImage } from 'next-sanity-image'
 import { client } from '@/sanity/lib/client'
