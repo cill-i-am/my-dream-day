@@ -5,6 +5,8 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { ThemeProvider } from 'next-themes';
 import { SanityLive } from '@/sanity/lib/live';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -28,6 +30,8 @@ export default function RootLayout({
           <Footer />
         </ThemeProvider>
         <SanityLive />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
