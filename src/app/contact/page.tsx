@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -11,10 +11,8 @@ import { MagicCard } from '@/components/magicui/magic-card'
 export default function Contact() {
     const [formData, setFormData] = useState({
         name: "",
-        partnerName: "",
         eventDate: "",
-        ceremonyLocation: "",
-        receptionLocation: "",
+        eventLocation: "",
         contactNumber: "",
         contactEmail: "",
         moreInfo: "",
@@ -25,12 +23,29 @@ export default function Contact() {
         setFormData((prevState) => ({ ...prevState, [name]: value }))
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        // Here you would typically send the form data to your server or a third-party service
-        console.log(formData)
-        alert("Thank you for your inquiry. We will get back to you soon!")
-    }
+    const mailtoLink = useMemo(() => {
+        const subject = "Wedding Inquiry - " + formData.name
+        const body = `Hello,
+
+I would like to inquire about your wedding photography services.
+
+Details:
+- Name: ${formData.name}
+- Event Date: ${formData.eventDate}
+- Event Location: ${formData.eventLocation}
+- Contact Number: ${formData.contactNumber}
+- Contact Email: ${formData.contactEmail}
+
+Additional Information:
+${formData.moreInfo}
+
+Thank you for your time and I look forward to hearing from you.
+
+Best regards,
+${formData.name}`
+
+        return `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    }, [formData])
 
     return (
         <div className="container mx-auto px-6 py-12">
@@ -41,21 +56,11 @@ export default function Contact() {
                     <CardTitle>Inquiry Form</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-6 w-full">
+                    <div className="space-y-6 w-full">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
                                 <Label htmlFor="name">Your Name</Label>
                                 <Input id="name" name="name" value={formData.name} onChange={handleChange} required />
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="partnerName">Your Partner&apos;s Name</Label>
-                                <Input
-                                    id="partnerName"
-                                    name="partnerName"
-                                    value={formData.partnerName}
-                                    onChange={handleChange}
-                                    required
-                                />
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="eventDate">Event Date</Label>
@@ -69,21 +74,11 @@ export default function Contact() {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="ceremonyLocation">Ceremony Location</Label>
+                                <Label htmlFor="eventLocation">Event Location</Label>
                                 <Input
-                                    id="ceremonyLocation"
-                                    name="ceremonyLocation"
-                                    value={formData.ceremonyLocation}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="receptionLocation">Reception Location</Label>
-                                <Input
-                                    id="receptionLocation"
-                                    name="receptionLocation"
-                                    value={formData.receptionLocation}
+                                    id="eventLocation"
+                                    name="eventLocation"
+                                    value={formData.eventLocation}
                                     onChange={handleChange}
                                     required
                                 />
@@ -115,8 +110,12 @@ export default function Contact() {
                             <Label htmlFor="moreInfo">More Information</Label>
                             <Textarea id="moreInfo" name="moreInfo" value={formData.moreInfo} onChange={handleChange} rows={4} />
                         </div>
-                        <Button type="submit">Submit Inquiry</Button>
-                    </form>
+                        <Button asChild type="button">
+                            <a href={mailtoLink}>
+                                Send Email
+                            </a>
+                        </Button>
+                    </div>
                 </CardContent>
             </MagicCard>
         </div>
