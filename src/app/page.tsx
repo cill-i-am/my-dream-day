@@ -9,6 +9,7 @@ import getTestamonials from '@/sanity/queries/get-testamonials'
 import getCompanyInfo from '@/sanity/queries/get-company-info'
 import type { Testimonial } from '../../sanity.types'
 import type { Metadata } from "next"
+import { RainbowButton } from '@/components/magicui/rainbow-button'
 
 export const metadata: Metadata = {
   title: "My Dream Day.ie - Wedding & Event Hire Décor",
@@ -114,9 +115,9 @@ export default async function Home() {
           All of our Packages are reasonably priced to suit any budget. We use the highest quality flowers and décor to
           make your dream day a real life Pinterest Moment.
         </p>
-        <Button asChild>
+        <RainbowButton variant="outline" asChild>
           <Link prefetch href="/contact">Contact Us Today</Link>
-        </Button>
+        </RainbowButton>
       </section>
     </div>
   )
