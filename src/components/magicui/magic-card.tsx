@@ -21,8 +21,8 @@ export function MagicCard({
   className,
   gradientSize = 200,
   gradientOpacity = 0.8,
-  gradientFrom = "#9E7AFF",
-  gradientTo = "#FE8BBB",
+  gradientFrom = "#FFD700",
+  gradientTo = "#FF8C00",
 }: MagicCardProps) {
   const { theme } = useTheme();
   const cardRef = useRef<HTMLDivElement>(null);
