@@ -1,51 +1,76 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { MagicCard } from '@/components/magicui/magic-card'
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form"
+
+const contactFormSchema = z.object({
+    name: z.string().min(2, {
+        message: "Name must be at least 2 characters.",
+    }),
+    eventDate: z.string().min(1, {
+        message: "Event date is required.",
+    }),
+    eventLocation: z.string().optional(),
+    contactNumber: z.string().optional(),
+    contactEmail: z.string().email({
+        message: "Please enter a valid email address.",
+    }),
+    moreInfo: z.string().optional(),
+})
+
+type ContactFormValues = z.infer<typeof contactFormSchema>
 
 export default function ContactForm() {
-    const [formData, setFormData] = useState({
-        name: "",
-        eventDate: "",
-        eventLocation: "",
-        contactNumber: "",
-        contactEmail: "",
-        moreInfo: "",
+    const form = useForm<ContactFormValues>({
+        resolver: zodResolver(contactFormSchema),
+        defaultValues: {
+            name: "",
+            eventDate: "",
+            eventLocation: "",
+            contactNumber: "",
+            contactEmail: "",
+            moreInfo: "",
+        },
     })
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target
-        setFormData((prevState) => ({ ...prevState, [name]: value }))
-    }
-
-    const mailtoLink = useMemo(() => {
-        const subject = "Wedding Inquiry - " + formData.name
+    function onSubmit(data: ContactFormValues) {
+        const subject = "Wedding Inquiry - " + data.name
         const body = `Hello,
 
 I would like to inquire about your wedding décor services.
 
 Details:
-- Name: ${formData.name}
-- Event Date: ${formData.eventDate}
-- Event Location: ${formData.eventLocation}
-- Contact Number: ${formData.contactNumber}
-- Contact Email: ${formData.contactEmail}
+- Name: ${data.name}
+- Event Date: ${data.eventDate}
+- Event Location: ${data.eventLocation}
+- Contact Number: ${data.contactNumber}
+- Contact Email: ${data.contactEmail}
 
 Additional Information:
-${formData.moreInfo}
+${data.moreInfo || 'N/A'}
 
 Thank you for your time and I look forward to hearing from you.
 
 Best regards,
-${formData.name}`
+${data.name}`
 
-        return `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    }, [formData])
+        const mailtoLink = `mailto:MydreamdayIreland@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+        window.open(mailtoLink, '_blank')
+    }
 
     return (
         <MagicCard className="w-full">
@@ -53,66 +78,97 @@ ${formData.name}`
                 <CardTitle>Inquiry Form</CardTitle>
             </CardHeader>
             <CardContent>
-                <div className="space-y-6 w-full">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                            <Label htmlFor="name">Your Name</Label>
-                            <Input id="name" name="name" value={formData.name} onChange={handleChange} required />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="eventDate">Event Date</Label>
-                            <Input
-                                type="date"
-                                id="eventDate"
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-full">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <FormField
+                                control={form.control}
+                                name="name"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Your Name</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter your name" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
                                 name="eventDate"
-                                value={formData.eventDate}
-                                onChange={handleChange}
-                                required
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Event Date</FormLabel>
+                                        <FormControl>
+                                            <Input type="date" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
                             />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="eventLocation">Event Location</Label>
-                            <Input
-                                id="eventLocation"
+                            <FormField
+                                control={form.control}
                                 name="eventLocation"
-                                value={formData.eventLocation}
-                                onChange={handleChange}
-                                required
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Event Location</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter event location" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
                             />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="contactNumber">Contact Number</Label>
-                            <Input
-                                type="tel"
-                                id="contactNumber"
+                            <FormField
+                                control={form.control}
                                 name="contactNumber"
-                                value={formData.contactNumber}
-                                onChange={handleChange}
-                                required
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Contact Number</FormLabel>
+                                        <FormControl>
+                                            <Input type="tel" placeholder="Enter your phone number" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
                             />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="contactEmail">Contact Email</Label>
-                            <Input
-                                type="email"
-                                id="contactEmail"
+                            <FormField
+                                control={form.control}
                                 name="contactEmail"
-                                value={formData.contactEmail}
-                                onChange={handleChange}
-                                required
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Contact Email</FormLabel>
+                                        <FormControl>
+                                            <Input type="email" placeholder="Enter your email" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
                             />
                         </div>
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="moreInfo">More Information</Label>
-                        <Textarea id="moreInfo" name="moreInfo" value={formData.moreInfo} onChange={handleChange} rows={4} />
-                    </div>
-                    <Button asChild type="button">
-                        <a href={mailtoLink}>
-                            Send Email
-                        </a>
-                    </Button>
-                </div>
+                        <FormField
+                            control={form.control}
+                            name="moreInfo"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>More Information</FormLabel>
+                                    <FormControl>
+                                        <Textarea
+                                            placeholder="Tell us more about your event..."
+                                            rows={4}
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button type="submit" className="w-full">
+                            Send Inquiry
+                        </Button>
+                    </form>
+                </Form>
             </CardContent>
         </MagicCard>
     )
