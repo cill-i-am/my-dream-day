@@ -139,4 +139,29 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Improve touch interaction */
+  button, 
+  [role="button"],
+  [data-slot="button"],
+  [data-slot="dropdown-menu-trigger"],
+  [data-slot="drawer-trigger"],
+  [data-slot="dropdown-menu-item"] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Ensure interactive elements are touchable */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [data-slot="button"]:not(:disabled),
+  [data-slot="dropdown-menu-trigger"]:not([aria-disabled="true"]),
+  [data-slot="drawer-trigger"]:not([aria-disabled="true"]),
+  [data-slot="dropdown-menu-item"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
 }

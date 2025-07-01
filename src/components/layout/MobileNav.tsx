@@ -26,12 +26,17 @@ export function MobileNav() {
         <div className="md:hidden"> {/* Hide on medium screens and up */}
             <Drawer shouldScaleBackground>
                 <DrawerTrigger asChild>
-                    <Button variant="outline" size="icon">
+                    <Button
+                        variant="outline"
+                        size="icon"
+                        className="touch-manipulation select-none"
+                        aria-label="Toggle navigation menu"
+                    >
                         <Menu className="h-4 w-4" />
                         <span className="sr-only">Toggle Menu</span>
                     </Button>
                 </DrawerTrigger>
-                <DrawerContent className="w-full p-4"> {/* Adjust width as needed */}
+                <DrawerContent className="w-full p-4 touch-manipulation"> {/* Adjust width as needed */}
                     <DrawerHeader>
                         <DrawerTitle>Navigation</DrawerTitle>
                         {/* Optional: Add a description */}
@@ -43,7 +48,7 @@ export function MobileNav() {
                                 <Link
                                     prefetch
                                     href={link.href}
-                                    className="text-lg font-medium text-foreground/80 transition-colors hover:text-foreground"
+                                    className="text-lg font-medium text-foreground/80 transition-colors hover:text-foreground touch-manipulation cursor-pointer select-none p-2 rounded-md hover:bg-accent/50 active:bg-accent"
                                 >
                                     {link.label}
                                 </Link>
